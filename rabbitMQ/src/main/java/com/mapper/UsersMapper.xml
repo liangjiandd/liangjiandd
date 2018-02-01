@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dao.UserDao" >
+  <resultMap id="BaseResultMap" type="com.entity.Users" >
+    <result column="id" property="id" jdbcType="DECIMAL" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="pwd" property="pwd" jdbcType="VARCHAR" />
+  </resultMap>
+  <insert id="insert" parameterType="com.entity.Users" >
+    insert into users (id, username, pwd
+      )
+    values (#{id,jdbcType=DECIMAL}, #{username,jdbcType=VARCHAR}, #{pwd,jdbcType=VARCHAR}
+      )
+  </insert>
+  <select id="selectIsLogin" resultMap="BaseResultMap">
+  		select * from users where username=#{username} and pwd=#{pwd}
+  </select>
+  <insert id="insertSelective" parameterType="com.entity.Users" >
+    insert into users
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="pwd != null" >
+        pwd,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="pwd != null" >
+        #{pwd,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>
